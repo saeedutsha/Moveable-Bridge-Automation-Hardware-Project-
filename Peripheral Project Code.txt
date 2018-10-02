@@ -1,0 +1,119 @@
+#include <Servo.h> 
+
+Servo myservo1,myservo2;
+int flag1 = 0;
+int flag2 = 0;
+int val1 = 0;
+int val2 = 0;
+int val3 = 0;
+int val4 = 0;
+
+int LDR0 = 0;
+int LDR1 = 1;
+int LDR2 = 2;
+int LDR3 = 3;
+int LDR4 = 4;
+int LDR5 = 5;
+
+int LDRValue0 = 0;
+int LDRValue1 = 0;
+int LDRValue2 = 0;
+int LDRValue3 = 0;
+int LDRValue4 = 0;
+int LDRValue5 = 0;
+int Light_Sensitivity = 350;
+int i=0,j=60;
+
+void setup() {
+  Serial.begin(9600);
+  myservo1.write(j);
+  myservo2.write(i);
+  pinMode(6,OUTPUT);
+  pinMode(13,OUTPUT);
+}
+
+void loop() {
+  myservo1.attach(9);
+  myservo2.attach(11);
+  
+ 
+  LDRValue0 = analogRead(LDR0);
+  LDRValue1 = analogRead(LDR1);
+  LDRValue2 = analogRead(LDR2);
+  LDRValue3 = analogRead(LDR3);
+  LDRValue4 = analogRead(LDR4);
+  LDRValue5 = analogRead(LDR5);
+  
+  if( LDRValue0 < Light_Sensitivity && LDRValue1 < Light_Sensitivity )
+  {
+     val1 = 1;
+     digitalWrite(13,HIGH);
+     delay(50);
+     digitalWrite(13,LOW);
+     delay(50);
+     tone(6,440);
+  }
+
+  if( LDRValue2 < Light_Sensitivity )
+    {
+      if ( val1 == 1 ){
+      flag1++;
+      noTone(6);
+      digitalWrite(13,LOW);
+      val3 = 1;
+      for(;i<=60,j>=0;i++,j--){
+      myservo1.write(j);
+      myservo2.write(i);
+      delay(50);
+      }
+      }
+      if( flag2 != 0 )
+      {
+        flag2--;
+        val2 = 0;
+        val4 = 0;
+        for(;j<=60,i>=0;j++,i--){
+      myservo1.write(j);
+      myservo2.write(i);
+      delay(50);
+      }
+      }
+    }
+
+  if( LDRValue4 < Light_Sensitivity && LDRValue5 < Light_Sensitivity )
+  {
+    val2  = 1;
+    tone(6,440);
+    digitalWrite(13,HIGH);
+    delay(50);
+    digitalWrite(13,LOW);
+    delay(50);
+  }
+
+  if( LDRValue3 < Light_Sensitivity )
+    {
+      if ( val2 == 1 ){
+      flag2++;
+      noTone(6);
+      digitalWrite(13,LOW);
+      val4 = 1;
+      for(;i<=60,j>=0;i++,j--){
+      myservo1.write(j);
+      myservo2.write(i);
+      delay(50);
+      }
+      }
+      if( flag1 != 0  )
+      {
+        flag1--;
+        val1 = 0;
+        val3 = 0;
+        for(;j<=60,i>=0;j++,i--){
+        myservo1.write(j);
+        myservo2.write(i);
+        delay(50);
+      }
+      }
+      
+    }    
+}
