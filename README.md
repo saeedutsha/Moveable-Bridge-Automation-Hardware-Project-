@@ -1,1 +1,2 @@
 # Moveable-Bridge-Automation-Hardware-Project-
+A movable bridge is a bridge that moves to allow passage (usually) for boats or barges. The main idea of the project is to build a movable bridge that would automatically retract to give way for the ship to pass. The bridge will have a portion of the bridge, which would be in the center of the bridge that would automatically retract once it gets signal from the ships which is wished to pass through it.
